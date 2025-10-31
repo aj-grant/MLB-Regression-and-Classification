@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 K-nearest Neighbours Regression | Machine Learning for Biostatistics</title>
+  <meta name="description" content="2 K-nearest Neighbours Regression | Machine Learning for Biostatistics" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 K-nearest Neighbours Regression | Machine Learning for Biostatistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 K-nearest Neighbours Regression | Machine Learning for Biostatistics" />
+  
+  
+  
+
+<meta name="author" content="Armando Teixeira-Pinto" />
+
+
+<meta name="date" content="2025-07-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="linear-regression.html"/>
+<link rel="next" href="logistic-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="bca.png"><H3><b><font color="F26531"> Machine Learning for Biostatistics </font> </b></H3> <a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><small><i> Back to canvas website </i></small></a></center></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Regression and Classification</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-used-in-the-examples"><i class="fa fa-check"></i>Datasets used in the examples</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#slides-from-the-videos"><i class="fa fa-check"></i>Slides from the videos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>1</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-regression.html"><a href="linear-regression.html#LR.intro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="linear-regression.html"><a href="linear-regression.html#LR.readings"><i class="fa fa-check"></i><b>1.2</b> Readings</a></li>
+<li class="chapter" data-level="1.3" data-path="linear-regression.html"><a href="linear-regression.html#LR.practice"><i class="fa fa-check"></i><b>1.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#task-1---fit-a-linear-model"><i class="fa fa-check"></i>Task 1 - Fit a linear model</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#task-2---predicting-from-a-linear-model"><i class="fa fa-check"></i>Task 2 - Predicting from a linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-regression.html"><a href="linear-regression.html#LR.exerc"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html"><i class="fa fa-check"></i><b>2</b> K-nearest Neighbours Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.intro"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.read"><i class="fa fa-check"></i><b>2.2</b> Readings</a></li>
+<li class="chapter" data-level="2.3" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.prac"><i class="fa fa-check"></i><b>2.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#task---fit-a-knn-regression"><i class="fa fa-check"></i>Task - Fit a knn regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.exerc"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>3</b> Logistic regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.intro"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.read"><i class="fa fa-check"></i><b>3.2</b> Readings</a></li>
+<li class="chapter" data-level="3.3" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.prac"><i class="fa fa-check"></i><b>3.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="logistic-regression.html"><a href="logistic-regression.html#task---logistic-regression"><i class="fa fa-check"></i>Task - Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.exerc"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html"><i class="fa fa-check"></i><b>4</b> Linear Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.intro"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.read"><i class="fa fa-check"></i><b>4.2</b> Readings</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.prac"><i class="fa fa-check"></i><b>4.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#task-1---classification-with-the-linear-discriminant-function"><i class="fa fa-check"></i>Task 1 - Classification with the linear discriminant function</a></li>
+<li class="chapter" data-level="" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#task-2---classification-with-the-quadratic-discriminant-function"><i class="fa fa-check"></i>Task 2 - Classification with the quadratic discriminant function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.exerc"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html"><i class="fa fa-check"></i><b>5</b> K-nearest Neighbours Classification</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.intro"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.read"><i class="fa fa-check"></i><b>5.2</b> Readings</a></li>
+<li class="chapter" data-level="5.3" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.prac"><i class="fa fa-check"></i><b>5.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#task---knn-classification"><i class="fa fa-check"></i>Task - KNN classification</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.exerc"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><center><a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><img src="usyd2.gif" width="60%"></a> <small>© A.Teixeira-Pinto, University of Sydney, 2021</small></center></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="../_book">Machine Learning for Biostatistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="k-nearest-neighbours-regression" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> K-nearest Neighbours Regression<a href="k-nearest-neighbours-regression.html#k-nearest-neighbours-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="knn.intro" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction<a href="k-nearest-neighbours-regression.html#knn.intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>KNN regression is a non-parametric method that, in an intuitive manner,
+approximates the association between independent variables and the continuous
+outcome by
+averaging the observations in the same <em>neighbourhood</em>. The size of the
+neighbourhood needs
+to be set by the analyst or can be chosen using cross-validation (we will
+see this later) to select the size that minimises the
+mean-squared error.</p>
+<p>While the method is quite appealing, it quickly becomes impractical when the
+dimension increases, i.e., when there are many independent variables.</p>
+<iframe width="784" height="441" src="https://www.youtube.com/embed/sTJApaBjong" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; 
+picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="knn.read" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Readings<a href="k-nearest-neighbours-regression.html#knn.read" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Read the following chapter of <em>An introduction to statistical learning</em>:</p>
+<ul>
+<li><a href="https://static1.squarespace.com/static/5ff2adbe3fe4fe33db902812/t/6062a083acbfe82c7195b27d/1617076404560/ISLR%2BSeventh%2BPrinting.pdf">3.5 Comparison of Linear Regression with K-Nearest Neighbors</a></li>
+</ul>
+</div>
+<div id="knn.prac" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Practical session<a href="k-nearest-neighbours-regression.html#knn.prac" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="task---fit-a-knn-regression" class="section level3 unnumbered hasAnchor">
+<h3>Task - Fit a knn regression<a href="k-nearest-neighbours-regression.html#task---fit-a-knn-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the <a href="https://www.dropbox.com/s/7wjsfdaf0wt2kg2/bmd.csv?dl=1">bmd.csv</a> dataset, we want to fit a knn regression with k=3 for BMD,
+with age as covariates. Then we will compute the MSE and <span class="math inline">\(R^2\)</span>.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="k-nearest-neighbours-regression.html#cb14-1" tabindex="-1"></a><span class="co">#libraries that we will need</span></span>
+<span id="cb14-2"><a href="k-nearest-neighbours-regression.html#cb14-2" tabindex="-1"></a><span class="fu">library</span>(FNN)   <span class="co">#knn regression</span></span></code></pre></div>
+<pre><code>## Warning: package &#39;FNN&#39; was built under R version 4.3.3</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="k-nearest-neighbours-regression.html#cb16-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1974</span>) <span class="co">#fix the random generator seed </span></span>
+<span id="cb16-2"><a href="k-nearest-neighbours-regression.html#cb16-2" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="k-nearest-neighbours-regression.html#cb16-3" tabindex="-1"></a><span class="co">#read the data</span></span>
+<span id="cb16-4"><a href="k-nearest-neighbours-regression.html#cb16-4" tabindex="-1"></a>bmd.data     <span class="ot">&lt;-</span> </span>
+<span id="cb16-5"><a href="k-nearest-neighbours-regression.html#cb16-5" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;https://www.dropbox.com/s/c6mhgatkotuze8o/bmd.csv?dl=1&quot;</span>, </span>
+<span id="cb16-6"><a href="k-nearest-neighbours-regression.html#cb16-6" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="k-nearest-neighbours-regression.html#cb17-1" tabindex="-1"></a><span class="co">#Fit a knn regression with k=3</span></span>
+<span id="cb17-2"><a href="k-nearest-neighbours-regression.html#cb17-2" tabindex="-1"></a><span class="co">#using the knn.reg() function from the FNN package</span></span>
+<span id="cb17-3"><a href="k-nearest-neighbours-regression.html#cb17-3" tabindex="-1"></a>knn3.bmd <span class="ot">&lt;-</span> <span class="fu">knn.reg</span>(<span class="at">train=</span>bmd.data[<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>)],   </span>
+<span id="cb17-4"><a href="k-nearest-neighbours-regression.html#cb17-4" tabindex="-1"></a>                     <span class="at">y=</span>bmd.data<span class="sc">$</span>bmd, </span>
+<span id="cb17-5"><a href="k-nearest-neighbours-regression.html#cb17-5" tabindex="-1"></a>                     <span class="at">test=</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>)),</span>
+<span id="cb17-6"><a href="k-nearest-neighbours-regression.html#cb17-6" tabindex="-1"></a>                     <span class="at">k=</span><span class="dv">3</span>)    </span></code></pre></div>
+<p>Before computing the MSE and <span class="math inline">\(R^2\)</span>, we will plot the model predictions</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="k-nearest-neighbours-regression.html#cb18-1" tabindex="-1"></a>  <span class="fu">plot</span>(bmd.data<span class="sc">$</span>age, bmd.data<span class="sc">$</span>bmd) <span class="co">#adding the scatter for BMI and BMD</span></span>
+<span id="cb18-2"><a href="k-nearest-neighbours-regression.html#cb18-2" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>), knn3.bmd<span class="sc">$</span>pred)  <span class="co">#adds the knn k=3 line</span></span></code></pre></div>
+<p><img src="_main_files/figure-html/agebmd-1.png" width="672" /></p>
+<p>Finally, we compute the MSE and <span class="math inline">\(R^2\)</span> for knn k=3. We have to refit the models and “test” them in the original data</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="k-nearest-neighbours-regression.html#cb19-1" tabindex="-1"></a>  knn3.bmd.datapred <span class="ot">&lt;-</span> <span class="fu">knn.reg</span>(<span class="at">train=</span>bmd.data[<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>)],  </span>
+<span id="cb19-2"><a href="k-nearest-neighbours-regression.html#cb19-2" tabindex="-1"></a>                           <span class="at">y=</span>bmd.data<span class="sc">$</span>bmd, </span>
+<span id="cb19-3"><a href="k-nearest-neighbours-regression.html#cb19-3" tabindex="-1"></a>                           <span class="at">test=</span>bmd.data[<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>)], <span class="co">#ORIGINAL DATA</span></span>
+<span id="cb19-4"><a href="k-nearest-neighbours-regression.html#cb19-4" tabindex="-1"></a>                           <span class="at">k=</span><span class="dv">3</span>)      <span class="co">#knn reg with k=3</span></span>
+<span id="cb19-5"><a href="k-nearest-neighbours-regression.html#cb19-5" tabindex="-1"></a>  <span class="co">#MSE for knn k=3 </span></span>
+<span id="cb19-6"><a href="k-nearest-neighbours-regression.html#cb19-6" tabindex="-1"></a>  mse.knn3  <span class="ot">&lt;-</span> <span class="fu">mean</span>((knn3.bmd.datapred<span class="sc">$</span>pred <span class="sc">-</span> bmd.data<span class="sc">$</span>bmd)<span class="sc">^</span><span class="dv">2</span>)  </span>
+<span id="cb19-7"><a href="k-nearest-neighbours-regression.html#cb19-7" tabindex="-1"></a>  mse.knn3</span></code></pre></div>
+<pre><code>## [1] 0.01531282</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="k-nearest-neighbours-regression.html#cb21-1" tabindex="-1"></a>  r2.knn3   <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span> mse.knn3<span class="sc">/</span>(<span class="fu">var</span>(bmd.data<span class="sc">$</span>bmd)<span class="sc">*</span><span class="dv">168</span><span class="sc">/</span><span class="dv">169</span>) <span class="co">#R2 for knn k=3 using </span></span>
+<span id="cb21-2"><a href="k-nearest-neighbours-regression.html#cb21-2" tabindex="-1"></a>  r2.knn3                                              <span class="co">#R2 = 1-MSE/var(y)</span></span></code></pre></div>
+<pre><code>## [1] 0.4445392</code></pre>
+<p><strong>TRY IT YOURSELF:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Fit a knn regression for BMD using AGE, with k=20</li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="k-nearest-neighbours-regression.html#cb23-1" tabindex="-1"></a>  knn20.bmd <span class="ot">&lt;-</span> <span class="fu">knn.reg</span>(<span class="at">train=</span>bmd.data[<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>)],   </span>
+<span id="cb23-2"><a href="k-nearest-neighbours-regression.html#cb23-2" tabindex="-1"></a>                      <span class="at">y=</span>bmd.data<span class="sc">$</span>bmd, </span>
+<span id="cb23-3"><a href="k-nearest-neighbours-regression.html#cb23-3" tabindex="-1"></a>                      <span class="at">test=</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>)),</span>
+<span id="cb23-4"><a href="k-nearest-neighbours-regression.html#cb23-4" tabindex="-1"></a>                      <span class="at">k=</span><span class="dv">20</span>)     <span class="co">#knn regression with k=20</span></span></code></pre></div>
+</details>
+<p>
+<p>
+<ol start="2" style="list-style-type: decimal">
+<li>Add the prediction line to the previous scatter plot</li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="k-nearest-neighbours-regression.html#cb24-1" tabindex="-1"></a><span class="fu">plot</span>(bmd.data<span class="sc">$</span>age, bmd.data<span class="sc">$</span>bmd) <span class="co">#adding the scatter for BMI and BMD</span></span>
+<span id="cb24-2"><a href="k-nearest-neighbours-regression.html#cb24-2" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>), knn3.bmd<span class="sc">$</span>pred) </span>
+<span id="cb24-3"><a href="k-nearest-neighbours-regression.html#cb24-3" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>), knn20.bmd<span class="sc">$</span>pred, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)  <span class="co">#adds the knn k=20 gray line</span></span></code></pre></div>
+<img src="_main_files/figure-html/knn3and20-1.png" width="672" />
+</details>
+<p>
+<p>
+<ol start="3" style="list-style-type: decimal">
+<li>Compute the MSE and <span class="math inline">\(R^2\)</span></li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="k-nearest-neighbours-regression.html#cb25-1" tabindex="-1"></a><span class="co">#predictions from knn reg with k=20</span></span>
+<span id="cb25-2"><a href="k-nearest-neighbours-regression.html#cb25-2" tabindex="-1"></a>knn20.bmd.datapred <span class="ot">&lt;-</span> <span class="fu">knn.reg</span>(</span>
+<span id="cb25-3"><a href="k-nearest-neighbours-regression.html#cb25-3" tabindex="-1"></a>  <span class="at">train =</span> bmd.data[<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>)],</span>
+<span id="cb25-4"><a href="k-nearest-neighbours-regression.html#cb25-4" tabindex="-1"></a>  <span class="at">y =</span> bmd.data<span class="sc">$</span>bmd,</span>
+<span id="cb25-5"><a href="k-nearest-neighbours-regression.html#cb25-5" tabindex="-1"></a>  <span class="at">test =</span> bmd.data[<span class="fu">c</span>(<span class="st">&quot;age&quot;</span>)],</span>
+<span id="cb25-6"><a href="k-nearest-neighbours-regression.html#cb25-6" tabindex="-1"></a>  <span class="co">#ORIGINAL DATA</span></span>
+<span id="cb25-7"><a href="k-nearest-neighbours-regression.html#cb25-7" tabindex="-1"></a>  <span class="at">k =</span> <span class="dv">20</span></span>
+<span id="cb25-8"><a href="k-nearest-neighbours-regression.html#cb25-8" tabindex="-1"></a>)    </span>
+<span id="cb25-9"><a href="k-nearest-neighbours-regression.html#cb25-9" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="k-nearest-neighbours-regression.html#cb25-10" tabindex="-1"></a><span class="co">#MSE for knn k=20</span></span>
+<span id="cb25-11"><a href="k-nearest-neighbours-regression.html#cb25-11" tabindex="-1"></a>mse.knn20 <span class="ot">&lt;-</span> <span class="fu">mean</span>((knn20.bmd.datapred<span class="sc">$</span>pred <span class="sc">-</span> bmd.data<span class="sc">$</span>bmd) <span class="sc">^</span> <span class="dv">2</span>) </span>
+<span id="cb25-12"><a href="k-nearest-neighbours-regression.html#cb25-12" tabindex="-1"></a>mse.knn20</span>
+<span id="cb25-13"><a href="k-nearest-neighbours-regression.html#cb25-13" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="k-nearest-neighbours-regression.html#cb25-14" tabindex="-1"></a><span class="co">#r2 for knn k=20</span></span>
+<span id="cb25-15"><a href="k-nearest-neighbours-regression.html#cb25-15" tabindex="-1"></a>r2.knn20 <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span>mse.knn20<span class="sc">/</span>(<span class="fu">var</span>(bmd.data<span class="sc">$</span>bmd)<span class="sc">*</span><span class="dv">168</span><span class="sc">/</span><span class="dv">169</span>) <span class="co">#168/169 is added to correct </span></span>
+<span id="cb25-16"><a href="k-nearest-neighbours-regression.html#cb25-16" tabindex="-1"></a>r2.knn20                                              <span class="co">#the degrees of freedom</span></span></code></pre></div>
+</details>
+<p>
+<p>
+<ol start="4" style="list-style-type: decimal">
+<li>Add a linear prediction for BMD using AGE to the scatter plot</li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="k-nearest-neighbours-regression.html#cb26-1" tabindex="-1"></a><span class="co">#The initial plot with knn3 and knn20</span></span>
+<span id="cb26-2"><a href="k-nearest-neighbours-regression.html#cb26-2" tabindex="-1"></a><span class="fu">plot</span>(bmd.data<span class="sc">$</span>age, bmd.data<span class="sc">$</span>bmd) <span class="co">#adding the scatter for BMI and BMD</span></span>
+<span id="cb26-3"><a href="k-nearest-neighbours-regression.html#cb26-3" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>), knn3.bmd<span class="sc">$</span>pred) </span>
+<span id="cb26-4"><a href="k-nearest-neighbours-regression.html#cb26-4" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>), knn20.bmd<span class="sc">$</span>pred, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)  <span class="co">#adds the knn k=20 gray line</span></span>
+<span id="cb26-5"><a href="k-nearest-neighbours-regression.html#cb26-5" tabindex="-1"></a>  </span>
+<span id="cb26-6"><a href="k-nearest-neighbours-regression.html#cb26-6" tabindex="-1"></a><span class="co">#linear model and predictions  </span></span>
+<span id="cb26-7"><a href="k-nearest-neighbours-regression.html#cb26-7" tabindex="-1"></a>model.age <span class="ot">&lt;-</span> <span class="fu">lm</span>(bmd <span class="sc">~</span> age, </span>
+<span id="cb26-8"><a href="k-nearest-neighbours-regression.html#cb26-8" tabindex="-1"></a>                   <span class="at">data =</span> bmd.data)</span>
+<span id="cb26-9"><a href="k-nearest-neighbours-regression.html#cb26-9" tabindex="-1"></a>bmd.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(model.age, </span>
+<span id="cb26-10"><a href="k-nearest-neighbours-regression.html#cb26-10" tabindex="-1"></a>                   <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>)))</span>
+<span id="cb26-11"><a href="k-nearest-neighbours-regression.html#cb26-11" tabindex="-1"></a><span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">38</span>,<span class="dv">89</span>), bmd.pred) <span class="co">#add the linear predictions to the plot</span></span></code></pre></div>
+<img src="_main_files/figure-html/knn3and20andlinear-1.png" width="672" />
+</details>
+</div>
+</div>
+<div id="knn.exerc" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> Exercises<a href="k-nearest-neighbours-regression.html#knn.exerc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>With the <em>fat</em> dataset in the <em>library(faraway)</em>, we want to predict body
+fat (variable <strong>brozek</strong>) using the variable <strong>abdom</strong></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>use a k-nearest neighbour regression, with k=3,5 and 11, to approximate
+the relation between <strong>brozek</strong> and <strong>abdom</strong>. Plot the three lines.</p></li>
+<li><p>What is the predicted <strong>brozek</strong> for someone with <strong>abdom=90</strong> using
+knn=11?</p></li>
+<li><p>What is the predicted <strong>brozek</strong> for someone with <strong>abdom=90</strong> using a
+linear model?</p></li>
+<li><p>Compute the mean squared error for k=3,5 and 11</p></li>
+</ol></li>
+<li><p>With the same data <em>fat</em>, use a knn (k=9) to predict body
+fat (variable <strong>brozek</strong>) using the variables <strong>abdom</strong> and <strong>age</strong></p></li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li><p>Plot the predictions for <strong>abdom = 80 to 115</strong> and <strong>age = 30</strong></p></li>
+<li><p>Would you expect the mean squared error for k=1 to be greater or smaller
+than the one for k=9? Why would you prefer k=9 over k=1?</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="linear-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="logistic-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

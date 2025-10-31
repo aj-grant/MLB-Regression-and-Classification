@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Linear Regression | Machine Learning for Biostatistics</title>
+  <meta name="description" content="1 Linear Regression | Machine Learning for Biostatistics" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Linear Regression | Machine Learning for Biostatistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Linear Regression | Machine Learning for Biostatistics" />
+  
+  
+  
+
+<meta name="author" content="Armando Teixeira-Pinto" />
+
+
+<meta name="date" content="2025-07-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="k-nearest-neighbours-regression.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="bca.png"><H3><b><font color="F26531"> Machine Learning for Biostatistics </font> </b></H3> <a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><small><i> Back to canvas website </i></small></a></center></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Regression and Classification</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-used-in-the-examples"><i class="fa fa-check"></i>Datasets used in the examples</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#slides-from-the-videos"><i class="fa fa-check"></i>Slides from the videos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>1</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-regression.html"><a href="linear-regression.html#LR.intro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="linear-regression.html"><a href="linear-regression.html#LR.readings"><i class="fa fa-check"></i><b>1.2</b> Readings</a></li>
+<li class="chapter" data-level="1.3" data-path="linear-regression.html"><a href="linear-regression.html#LR.practice"><i class="fa fa-check"></i><b>1.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#task-1---fit-a-linear-model"><i class="fa fa-check"></i>Task 1 - Fit a linear model</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#task-2---predicting-from-a-linear-model"><i class="fa fa-check"></i>Task 2 - Predicting from a linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-regression.html"><a href="linear-regression.html#LR.exerc"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html"><i class="fa fa-check"></i><b>2</b> K-nearest Neighbours Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.intro"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.read"><i class="fa fa-check"></i><b>2.2</b> Readings</a></li>
+<li class="chapter" data-level="2.3" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.prac"><i class="fa fa-check"></i><b>2.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#task---fit-a-knn-regression"><i class="fa fa-check"></i>Task - Fit a knn regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.exerc"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>3</b> Logistic regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.intro"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.read"><i class="fa fa-check"></i><b>3.2</b> Readings</a></li>
+<li class="chapter" data-level="3.3" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.prac"><i class="fa fa-check"></i><b>3.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="logistic-regression.html"><a href="logistic-regression.html#task---logistic-regression"><i class="fa fa-check"></i>Task - Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.exerc"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html"><i class="fa fa-check"></i><b>4</b> Linear Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.intro"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.read"><i class="fa fa-check"></i><b>4.2</b> Readings</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.prac"><i class="fa fa-check"></i><b>4.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#task-1---classification-with-the-linear-discriminant-function"><i class="fa fa-check"></i>Task 1 - Classification with the linear discriminant function</a></li>
+<li class="chapter" data-level="" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#task-2---classification-with-the-quadratic-discriminant-function"><i class="fa fa-check"></i>Task 2 - Classification with the quadratic discriminant function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.exerc"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html"><i class="fa fa-check"></i><b>5</b> K-nearest Neighbours Classification</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.intro"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.read"><i class="fa fa-check"></i><b>5.2</b> Readings</a></li>
+<li class="chapter" data-level="5.3" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.prac"><i class="fa fa-check"></i><b>5.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#task---knn-classification"><i class="fa fa-check"></i>Task - KNN classification</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.exerc"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><center><a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><img src="usyd2.gif" width="60%"></a> <small>© A.Teixeira-Pinto, University of Sydney, 2021</small></center></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="../_book">Machine Learning for Biostatistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-regression" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Linear Regression<a href="linear-regression.html#linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="LR.intro" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Introduction<a href="linear-regression.html#LR.intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You should be familiar with linear regression, so this section is likely
+a review of this model. Also, linear regression is a well established method
+and it is well studied, both from the theoretical and practical perspective.
+Therefore, there are many aspects that are referred in the textbook but we
+will not explore much in this section, such as, outliers, testing,
+heteroscedasticity, leverage power, but you should be familiar with these
+terms.</p>
+<iframe width="784" height="441" src="https://www.youtube.com/embed/EHfJHZhM4Aw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="LR.readings" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Readings<a href="linear-regression.html#LR.readings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Read the following chapters of <em>An introduction to statistical learning</em>:</p>
+<ul>
+<li>3.1 Simple Linear Regression</li>
+<li>3.2 Multiple Linear Regression</li>
+<li>3.3 Other Considerations in the Regression Model</li>
+</ul>
+</div>
+<div id="LR.practice" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Practice session<a href="linear-regression.html#LR.practice" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="task-1---fit-a-linear-model" class="section level3 unnumbered hasAnchor">
+<h3>Task 1 - Fit a linear model<a href="linear-regression.html#task-1---fit-a-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the <a href="https://www.dropbox.com/s/7wjsfdaf0wt2kg2/bmd.csv?dl=1">bmd.csv</a> dataset, we want to fit a linear model to predict
+bone mineral density (BMD) based on AGE, SEX and BMI (BMI has to be computed)
+and we want to compute the <span class="math inline">\(R^2\)</span> and MSE for the models that were fitted.</p>
+<p>Let’s first read the data and compute “BMI”</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="linear-regression.html#cb1-1" tabindex="-1"></a><span class="co">#libraries that we will need</span></span>
+<span id="cb1-2"><a href="linear-regression.html#cb1-2" tabindex="-1"></a><span class="fu">library</span>(psych) <span class="co">#for the function pairs.panels</span></span>
+<span id="cb1-3"><a href="linear-regression.html#cb1-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1974</span>) <span class="co">#fix the random generator seed </span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="linear-regression.html#cb2-1" tabindex="-1"></a><span class="co">#read the dataset</span></span>
+<span id="cb2-2"><a href="linear-regression.html#cb2-2" tabindex="-1"></a>bmd.data     <span class="ot">&lt;-</span> </span>
+<span id="cb2-3"><a href="linear-regression.html#cb2-3" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;https://www.dropbox.com/s/c6mhgatkotuze8o/bmd.csv?dl=1&quot;</span>, </span>
+<span id="cb2-4"><a href="linear-regression.html#cb2-4" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-5"><a href="linear-regression.html#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="linear-regression.html#cb2-6" tabindex="-1"></a>bmd.data<span class="sc">$</span>bmi <span class="ot">&lt;-</span> bmd.data<span class="sc">$</span>weight_kg <span class="sc">/</span> (bmd.data<span class="sc">$</span>height_cm<span class="sc">/</span><span class="dv">100</span>)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb2-7"><a href="linear-regression.html#cb2-7" tabindex="-1"></a><span class="fu">summary</span>(bmd.data)</span></code></pre></div>
+<pre><code>##        id             age        sex           fracture     weight_kg    
+##  Min.   :   35   Min.   :35.81   F:83   fracture   : 50   Min.   :36.00  
+##  1st Qu.: 2018   1st Qu.:54.42   M:86   no fracture:119   1st Qu.:56.00  
+##  Median : 6702   Median :63.49                            Median :64.50  
+##  Mean   : 9103   Mean   :63.63                            Mean   :64.67  
+##  3rd Qu.:17100   3rd Qu.:72.08                            3rd Qu.:73.00  
+##  Max.   :24208   Max.   :88.75                            Max.   :96.00  
+##    height_cm               medication   waiting_time        bmd        
+##  Min.   :142.0   Anticonvulsant :  9   Min.   : 5.00   Min.   :0.4076  
+##  1st Qu.:154.0   Glucocorticoids: 24   1st Qu.: 9.00   1st Qu.:0.6708  
+##  Median :160.5   No medication  :136   Median :14.00   Median :0.7861  
+##  Mean   :160.3                         Mean   :19.74   Mean   :0.7831  
+##  3rd Qu.:166.0                         3rd Qu.:24.00   3rd Qu.:0.8888  
+##  Max.   :177.0                         Max.   :96.00   Max.   :1.3624  
+##       bmi       
+##  Min.   :15.43  
+##  1st Qu.:22.15  
+##  Median :24.96  
+##  Mean   :25.20  
+##  3rd Qu.:27.55  
+##  Max.   :38.54</code></pre>
+<p>Before we model, let’s look at the correlation structure of the variables
+involved</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="linear-regression.html#cb4-1" tabindex="-1"></a><span class="fu">pairs.panels</span>(bmd.data[<span class="fu">c</span>(<span class="st">&quot;bmd&quot;</span>, <span class="st">&quot;age&quot;</span>,<span class="st">&quot;sex&quot;</span>, <span class="st">&quot;bmi&quot;</span>)], </span>
+<span id="cb4-2"><a href="linear-regression.html#cb4-2" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="co"># correlation method</span></span>
+<span id="cb4-3"><a href="linear-regression.html#cb4-3" tabindex="-1"></a>             <span class="at">hist.col =</span> <span class="st">&quot;#00AFBB&quot;</span>,</span>
+<span id="cb4-4"><a href="linear-regression.html#cb4-4" tabindex="-1"></a>             <span class="at">density =</span> <span class="cn">TRUE</span>,  <span class="co"># show density plots</span></span>
+<span id="cb4-5"><a href="linear-regression.html#cb4-5" tabindex="-1"></a>             <span class="at">ellipses =</span> <span class="cn">TRUE</span> <span class="co"># show correlation ellipses</span></span>
+<span id="cb4-6"><a href="linear-regression.html#cb4-6" tabindex="-1"></a>             )</span></code></pre></div>
+<p><img src="_main_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>We fit a linear model for BMD and evaluate the R-squared</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="linear-regression.html#cb5-1" tabindex="-1"></a><span class="co">#Fits a linear model with fixed effects only  </span></span>
+<span id="cb5-2"><a href="linear-regression.html#cb5-2" tabindex="-1"></a>  model1.bmd <span class="ot">&lt;-</span> <span class="fu">lm</span>(bmd <span class="sc">~</span> age <span class="sc">+</span> sex <span class="sc">+</span> bmi, <span class="at">data =</span> bmd.data)</span>
+<span id="cb5-3"><a href="linear-regression.html#cb5-3" tabindex="-1"></a>  <span class="fu">summary</span>(model1.bmd)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = bmd ~ age + sex + bmi, data = bmd.data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.38207 -0.07669 -0.00654  0.07888  0.51256 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.6063945  0.0834051   7.270 1.36e-11 ***
+## age         -0.0041579  0.0008625  -4.821 3.23e-06 ***
+## sexM         0.0949602  0.0213314   4.452 1.56e-05 ***
+## bmi          0.0155913  0.0024239   6.432 1.30e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.138 on 165 degrees of freedom
+## Multiple R-squared:  0.3254, Adjusted R-squared:  0.3131 
+## F-statistic: 26.53 on 3 and 165 DF,  p-value: 4.677e-14</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="linear-regression.html#cb7-1" tabindex="-1"></a>  <span class="fu">mean</span>(model1.bmd<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="co">#MSE</span></span></code></pre></div>
+<pre><code>## [1] 0.01859697</code></pre>
+<p><strong>TRY IT YOURSELF:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Fit a linear model with the interaction age*sex - call it model 2</li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="linear-regression.html#cb9-1" tabindex="-1"></a><span class="co">#Fits a linear model with an interaction age*sex</span></span>
+<span id="cb9-2"><a href="linear-regression.html#cb9-2" tabindex="-1"></a>  model2.bmd <span class="ot">&lt;-</span> <span class="fu">lm</span>(bmd <span class="sc">~</span> age <span class="sc">*</span> sex <span class="sc">+</span> bmi, <span class="at">data =</span> bmd.data)</span>
+<span id="cb9-3"><a href="linear-regression.html#cb9-3" tabindex="-1"></a>  <span class="fu">summary</span>(model2.bmd)</span>
+<span id="cb9-4"><a href="linear-regression.html#cb9-4" tabindex="-1"></a>  <span class="fu">mean</span>(model2.bmd<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="co">#MSE</span></span></code></pre></div>
+</details>
+<p>
+<p>
+<ol start="2" style="list-style-type: decimal">
+<li>Fit a linear model with the the interaction age*sex and cubic effect for
+BMI - call it model 3</li>
+</ol>
+<details>
+<summary>
+See the solution code
+</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="linear-regression.html#cb10-1" tabindex="-1"></a><span class="co">#Fits a linear model with an interaction and polynomial f</span></span>
+<span id="cb10-2"><a href="linear-regression.html#cb10-2" tabindex="-1"></a>  model3.bmd <span class="ot">&lt;-</span> <span class="fu">lm</span>(bmd <span class="sc">~</span> age<span class="sc">*</span>sex  <span class="sc">+</span> bmi <span class="sc">+</span> <span class="fu">I</span>(bmi<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">I</span>(bmi<span class="sc">^</span><span class="dv">3</span>), </span>
+<span id="cb10-3"><a href="linear-regression.html#cb10-3" tabindex="-1"></a>                   <span class="at">data =</span> bmd.data)</span>
+<span id="cb10-4"><a href="linear-regression.html#cb10-4" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="linear-regression.html#cb10-5" tabindex="-1"></a>  <span class="co">#You could use the poly() function to fit the same model</span></span>
+<span id="cb10-6"><a href="linear-regression.html#cb10-6" tabindex="-1"></a>  <span class="co">#however, poly() will use orthogonal polynomials</span></span>
+<span id="cb10-7"><a href="linear-regression.html#cb10-7" tabindex="-1"></a>  <span class="co">#so the coefficients will not be the same as above</span></span>
+<span id="cb10-8"><a href="linear-regression.html#cb10-8" tabindex="-1"></a>  <span class="co">#summary(lm(bmd ~ age*sex  + poly(bmi,3) , data = bmd.data))</span></span>
+<span id="cb10-9"><a href="linear-regression.html#cb10-9" tabindex="-1"></a>  <span class="fu">summary</span>(model3.bmd)</span>
+<span id="cb10-10"><a href="linear-regression.html#cb10-10" tabindex="-1"></a>  <span class="fu">mean</span>(model3.bmd<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>) <span class="co">#MSE</span></span></code></pre></div>
+</details>
+</div>
+<div id="task-2---predicting-from-a-linear-model" class="section level3 unnumbered hasAnchor">
+<h3>Task 2 - Predicting from a linear model<a href="linear-regression.html#task-2---predicting-from-a-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first plot the scatter for BMD and BMI, then get the predictions from
+model 3 in task 1, for a new data where age=50, sex=F and we let BMI
+vary from 15 to 40. We also compute the predictions for males with similar
+characteristics. Finally, we add the fitted lines to the plot.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="linear-regression.html#cb11-1" tabindex="-1"></a><span class="co">#Scatter plot of BMD and BMI</span></span>
+<span id="cb11-2"><a href="linear-regression.html#cb11-2" tabindex="-1"></a>  <span class="fu">plot</span>(bmd.data<span class="sc">$</span>bmi, bmd.data<span class="sc">$</span>bmd, </span>
+<span id="cb11-3"><a href="linear-regression.html#cb11-3" tabindex="-1"></a>        <span class="at">col =</span> <span class="fu">ifelse</span>(bmd.data<span class="sc">$</span>sex<span class="sc">==</span><span class="st">&quot;F&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span>
+<span id="cb11-4"><a href="linear-regression.html#cb11-4" tabindex="-1"></a><span class="co">#prediction from model b) in task 1</span></span>
+<span id="cb11-5"><a href="linear-regression.html#cb11-5" tabindex="-1"></a>  bmd.f50 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model3.bmd, </span>
+<span id="cb11-6"><a href="linear-regression.html#cb11-6" tabindex="-1"></a>                   <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="dv">50</span>, <span class="at">sex=</span><span class="st">&quot;F&quot;</span>, <span class="at">bmi=</span><span class="fu">seq</span>(<span class="dv">15</span>,<span class="dv">40</span>)))</span>
+<span id="cb11-7"><a href="linear-regression.html#cb11-7" tabindex="-1"></a>  bmd.m50 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model3.bmd, </span>
+<span id="cb11-8"><a href="linear-regression.html#cb11-8" tabindex="-1"></a>                   <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="dv">50</span>, <span class="at">sex=</span><span class="st">&quot;M&quot;</span>, <span class="at">bmi=</span><span class="fu">seq</span>(<span class="dv">15</span>,<span class="dv">40</span>)))</span>
+<span id="cb11-9"><a href="linear-regression.html#cb11-9" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">15</span>,<span class="dv">40</span>), bmd.f50, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb11-10"><a href="linear-regression.html#cb11-10" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">15</span>,<span class="dv">40</span>), bmd.m50, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="_main_files/figure-html/BMDBMI-1.png" width="672" /></p>
+<p><strong>TRY IT YOURSELF:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Produce the scatter plot for BMD and AGE, only for women</li>
+</ol>
+<details>
+<summary>
+See the solution code
+</summary>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="linear-regression.html#cb12-1" tabindex="-1"></a><span class="co">#Scatter plot of BMD and AGE</span></span>
+<span id="cb12-2"><a href="linear-regression.html#cb12-2" tabindex="-1"></a>  <span class="fu">plot</span>( bmd.data<span class="sc">$</span>age[bmd.data<span class="sc">$</span>sex<span class="sc">==</span><span class="st">&quot;F&quot;</span>], bmd.data<span class="sc">$</span>bmd[bmd.data<span class="sc">$</span>sex<span class="sc">==</span><span class="st">&quot;F&quot;</span>])</span></code></pre></div>
+<img src="_main_files/figure-html/BMDAGEWOMEN-1.png" width="672" />
+</details>
+<p>
+<p>
+<ol start="2" style="list-style-type: decimal">
+<li>Predict the BMD for women, with a BMI=25 and AGE between 40 and 90,
+using model 3 from task 1 and plot the prediction</li>
+</ol>
+<details>
+<summary>
+See the solution code
+</summary>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="linear-regression.html#cb13-1" tabindex="-1"></a><span class="co">#Scatter plot of BMD and AGE</span></span>
+<span id="cb13-2"><a href="linear-regression.html#cb13-2" tabindex="-1"></a>  <span class="fu">plot</span>( bmd.data<span class="sc">$</span>age[bmd.data<span class="sc">$</span>sex<span class="sc">==</span><span class="st">&quot;F&quot;</span>], bmd.data<span class="sc">$</span>bmd[bmd.data<span class="sc">$</span>sex<span class="sc">==</span><span class="st">&quot;F&quot;</span>])</span>
+<span id="cb13-3"><a href="linear-regression.html#cb13-3" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="linear-regression.html#cb13-4" tabindex="-1"></a><span class="co">#prediction from model 3 in task 1</span></span>
+<span id="cb13-5"><a href="linear-regression.html#cb13-5" tabindex="-1"></a><span class="co">#(the prediction line only )</span></span>
+<span id="cb13-6"><a href="linear-regression.html#cb13-6" tabindex="-1"></a>  bmd.bmi25 <span class="ot">&lt;-</span> <span class="fu">predict</span>(model3.bmd, </span>
+<span id="cb13-7"><a href="linear-regression.html#cb13-7" tabindex="-1"></a>                   <span class="at">newdata =</span> <span class="fu">data.frame</span>(<span class="at">age=</span><span class="fu">seq</span>(<span class="dv">40</span>,<span class="dv">90</span>), <span class="at">sex=</span><span class="st">&quot;F&quot;</span>, <span class="at">bmi=</span><span class="dv">25</span>))</span>
+<span id="cb13-8"><a href="linear-regression.html#cb13-8" tabindex="-1"></a>  <span class="fu">lines</span>(<span class="fu">seq</span>(<span class="dv">40</span>,<span class="dv">90</span>), bmd.bmi25)</span></code></pre></div>
+<img src="_main_files/figure-html/BMDBMIpred%20-1.png" width="672" />
+</details>
+</div>
+</div>
+<div id="LR.exerc" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Exercises<a href="linear-regression.html#LR.exerc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Solve the following exercises from the <em>An introduction to statistical learning</em> book:</p>
+<ol style="list-style-type: decimal">
+<li><p>Exercise 4 (page 122)</p></li>
+<li><p>Exercise 13 (page 126)</p></li>
+<li><p>With the <em>fat</em> dataset in the <code>library(faraway)</code>, we want to
+fit a linear model to predict body fat (variable <strong>brozek</strong>) using the variable
+<strong>abdom</strong> and <strong>age</strong>. After loading the library, use the command <code>data(fat)</code>
+to load the dataset.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>recode the variable age into <strong>age_cat</strong> with the following categories:
+&lt;30, 30-50 and &gt;50</p></li>
+<li><p>fit a linear model using <strong>abdom</strong> and <strong>age_cat</strong> and compute the mean
+squared error</p></li>
+<li><p>fit a linear model using <strong>abdom</strong> , <strong>age_cat</strong> and the interaction
+between these two predictors. Comment on the change in the mean
+squared error of this model compared to the one without the interaction.</p></li>
+</ol></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="k-nearest-neighbours-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

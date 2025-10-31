@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Linear Discriminant Analysis | Machine Learning for Biostatistics</title>
+  <meta name="description" content="4 Linear Discriminant Analysis | Machine Learning for Biostatistics" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Linear Discriminant Analysis | Machine Learning for Biostatistics" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Linear Discriminant Analysis | Machine Learning for Biostatistics" />
+  
+  
+  
+
+<meta name="author" content="Armando Teixeira-Pinto" />
+
+
+<meta name="date" content="2025-07-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="logistic-regression.html"/>
+<link rel="next" href="k-nearest-neighbours-classification.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><center><img src="bca.png"><H3><b><font color="F26531"> Machine Learning for Biostatistics </font> </b></H3> <a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><small><i> Back to canvas website </i></small></a></center></li>
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Regression and Classification</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#introduction"><i class="fa fa-check"></i>Introduction</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#datasets-used-in-the-examples"><i class="fa fa-check"></i>Datasets used in the examples</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#slides-from-the-videos"><i class="fa fa-check"></i>Slides from the videos</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="linear-regression.html"><a href="linear-regression.html"><i class="fa fa-check"></i><b>1</b> Linear Regression</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="linear-regression.html"><a href="linear-regression.html#LR.intro"><i class="fa fa-check"></i><b>1.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2" data-path="linear-regression.html"><a href="linear-regression.html#LR.readings"><i class="fa fa-check"></i><b>1.2</b> Readings</a></li>
+<li class="chapter" data-level="1.3" data-path="linear-regression.html"><a href="linear-regression.html#LR.practice"><i class="fa fa-check"></i><b>1.3</b> Practice session</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#task-1---fit-a-linear-model"><i class="fa fa-check"></i>Task 1 - Fit a linear model</a></li>
+<li class="chapter" data-level="" data-path="linear-regression.html"><a href="linear-regression.html#task-2---predicting-from-a-linear-model"><i class="fa fa-check"></i>Task 2 - Predicting from a linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="linear-regression.html"><a href="linear-regression.html#LR.exerc"><i class="fa fa-check"></i><b>1.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html"><i class="fa fa-check"></i><b>2</b> K-nearest Neighbours Regression</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.intro"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.read"><i class="fa fa-check"></i><b>2.2</b> Readings</a></li>
+<li class="chapter" data-level="2.3" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.prac"><i class="fa fa-check"></i><b>2.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#task---fit-a-knn-regression"><i class="fa fa-check"></i>Task - Fit a knn regression</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="k-nearest-neighbours-regression.html"><a href="k-nearest-neighbours-regression.html#knn.exerc"><i class="fa fa-check"></i><b>2.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="logistic-regression.html"><a href="logistic-regression.html"><i class="fa fa-check"></i><b>3</b> Logistic regression</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.intro"><i class="fa fa-check"></i><b>3.1</b> Introduction</a></li>
+<li class="chapter" data-level="3.2" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.read"><i class="fa fa-check"></i><b>3.2</b> Readings</a></li>
+<li class="chapter" data-level="3.3" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.prac"><i class="fa fa-check"></i><b>3.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="logistic-regression.html"><a href="logistic-regression.html#task---logistic-regression"><i class="fa fa-check"></i>Task - Logistic regression</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="logistic-regression.html"><a href="logistic-regression.html#lr.exerc"><i class="fa fa-check"></i><b>3.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html"><i class="fa fa-check"></i><b>4</b> Linear Discriminant Analysis</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.intro"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.read"><i class="fa fa-check"></i><b>4.2</b> Readings</a></li>
+<li class="chapter" data-level="4.3" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.prac"><i class="fa fa-check"></i><b>4.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#task-1---classification-with-the-linear-discriminant-function"><i class="fa fa-check"></i>Task 1 - Classification with the linear discriminant function</a></li>
+<li class="chapter" data-level="" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#task-2---classification-with-the-quadratic-discriminant-function"><i class="fa fa-check"></i>Task 2 - Classification with the quadratic discriminant function</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="linear-discriminant-analysis.html"><a href="linear-discriminant-analysis.html#lda.exerc"><i class="fa fa-check"></i><b>4.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html"><i class="fa fa-check"></i><b>5</b> K-nearest Neighbours Classification</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.intro"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.read"><i class="fa fa-check"></i><b>5.2</b> Readings</a></li>
+<li class="chapter" data-level="5.3" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.prac"><i class="fa fa-check"></i><b>5.3</b> Practical session</a>
+<ul>
+<li class="chapter" data-level="" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#task---knn-classification"><i class="fa fa-check"></i>Task - KNN classification</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="k-nearest-neighbours-classification.html"><a href="k-nearest-neighbours-classification.html#knnc.exerc"><i class="fa fa-check"></i><b>5.4</b> Exercises</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><center><a href="https://canvas.sydney.edu.au/courses/66692/modules" style="color:364550" target="blank"><img src="usyd2.gif" width="60%"></a> <small>© A.Teixeira-Pinto, University of Sydney, 2021</small></center></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="../_book">Machine Learning for Biostatistics</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="linear-discriminant-analysis" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Linear Discriminant Analysis<a href="linear-discriminant-analysis.html#linear-discriminant-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="lda.intro" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Introduction<a href="linear-discriminant-analysis.html#lda.intro" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Once again we focus on <span class="math inline">\(\Pr (Y=k | X = x)\)</span> to classify an individual (or other
+unit) in one of the categories of <span class="math inline">\(Y\)</span>. Using the Bayes theorem,</p>
+<p><span class="math inline">\(\Pr (Y=k | X = x) = \frac{f_k(x) \Pr (Y=k) }{f(x)}\)</span>,</p>
+<p>where <span class="math inline">\(f_k(x)\)</span> is the density for <span class="math inline">\(X\mid Y=k\)</span>.</p>
+<p>Thus, finding the category <span class="math inline">\(k\)</span> that has the highest probability
+<span class="math inline">\(\Pr (Y=k | X = x)\)</span> is the same as finding the category <span class="math inline">\(k\)</span> with higher value
+for <span class="math inline">\(\frac{f_k(x)\Pr(Y=k) }{f(x)}\)</span>.</p>
+<p>Now, if we assume that the density of <span class="math inline">\(X\)</span> (represented above in a slight abuse
+of notation as Pr(X=x)) is <span class="math inline">\(N(\mu, \sigma^2)\)</span>, it is possible to show that
+maximising the right side of the equation is equivalent to maximising</p>
+<p><span class="math inline">\(\underbrace{x \cdot \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + \log\big(\Pr(Y=k)\big)}_{\text{discriminant function}}\)</span></p>
+<p>So, if we get estimates for the parameters in the discriminant function,
+we can calculate the category <span class="math inline">\(k\)</span> that has the highest discriminant value and
+thus the highest <span class="math inline">\(\Pr (Y=k | X = x)\)</span>.</p>
+<iframe width="784" height="441" src="https://www.youtube.com/embed/D4C7YbfFQSk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; 
+picture-in-picture" allowfullscreen>
+</iframe>
+</div>
+<div id="lda.read" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Readings<a href="linear-discriminant-analysis.html#lda.read" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Read the following chapters of <em>An introduction to statistical learning</em>:</p>
+<ul>
+<li>4.4 Linear Discriminant Analysis</li>
+<li>4.5 A Comparison of Classification Methods</li>
+</ul>
+</div>
+<div id="lda.prac" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Practical session<a href="linear-discriminant-analysis.html#lda.prac" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="task-1---classification-with-the-linear-discriminant-function" class="section level3 unnumbered hasAnchor">
+<h3>Task 1 - Classification with the linear discriminant function<a href="linear-discriminant-analysis.html#task-1---classification-with-the-linear-discriminant-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>With the <a href="https://www.dropbox.com/s/7wjsfdaf0wt2kg2/bmd.csv?dl=1">bmd.csv</a>
+dataset, let’s use the variable <strong>bmd</strong> to predict <strong>fracture</strong> using linear
+discriminant analysis.</p>
+<p>The discriminant function is given by</p>
+<p><span class="math inline">\(age \cdot \frac{\mu_k}{\sigma^2} - \frac{\mu_k^2}{2\sigma^2} + \log\big(\Pr(Y=k)\big)\)</span>,</p>
+<p>where <span class="math inline">\(\mu_k\)</span> is the mean <strong>bmd</strong> for the group <span class="math inline">\(k=\)</span> “fracture” or <span class="math inline">\(k=\)</span>
+“no fracture”, <span class="math inline">\(\sigma\)</span> is the standard deviation for <strong>bmd</strong>, and <span class="math inline">\(\Pr(Y=k)\)</span> is
+the (marginal) probability of each category of the outcome.</p>
+<p>We can easily get estimates for these parameters.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="linear-discriminant-analysis.html#cb44-1" tabindex="-1"></a><span class="co">#libraries that we will need</span></span>
+<span id="cb44-2"><a href="linear-discriminant-analysis.html#cb44-2" tabindex="-1"></a><span class="fu">library</span>(MASS) <span class="co">#lda function</span></span>
+<span id="cb44-3"><a href="linear-discriminant-analysis.html#cb44-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1974</span>) <span class="co">#fix the random generator seed </span></span>
+<span id="cb44-4"><a href="linear-discriminant-analysis.html#cb44-4" tabindex="-1"></a></span>
+<span id="cb44-5"><a href="linear-discriminant-analysis.html#cb44-5" tabindex="-1"></a><span class="co">#read the data</span></span>
+<span id="cb44-6"><a href="linear-discriminant-analysis.html#cb44-6" tabindex="-1"></a>bmd.data     <span class="ot">&lt;-</span> </span>
+<span id="cb44-7"><a href="linear-discriminant-analysis.html#cb44-7" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="st">&quot;https://www.dropbox.com/s/c6mhgatkotuze8o/bmd.csv?dl=1&quot;</span>, </span>
+<span id="cb44-8"><a href="linear-discriminant-analysis.html#cb44-8" tabindex="-1"></a>           <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="linear-discriminant-analysis.html#cb45-1" tabindex="-1"></a><span class="co">#mean bmd for fracture</span></span>
+<span id="cb45-2"><a href="linear-discriminant-analysis.html#cb45-2" tabindex="-1"></a>mean.f   <span class="ot">&lt;-</span> <span class="fu">with</span>(bmd.data, <span class="fu">mean</span>(bmd[fracture<span class="sc">==</span><span class="st">&quot;fracture&quot;</span>]))  </span>
+<span id="cb45-3"><a href="linear-discriminant-analysis.html#cb45-3" tabindex="-1"></a><span class="co">#mean bmd for no fracture</span></span>
+<span id="cb45-4"><a href="linear-discriminant-analysis.html#cb45-4" tabindex="-1"></a>mean.nf  <span class="ot">&lt;-</span> <span class="fu">with</span>(bmd.data, <span class="fu">mean</span>(bmd[fracture<span class="sc">==</span><span class="st">&quot;no fracture&quot;</span>])) </span>
+<span id="cb45-5"><a href="linear-discriminant-analysis.html#cb45-5" tabindex="-1"></a><span class="co">#estimate of sigma (see page 141)</span></span>
+<span id="cb45-6"><a href="linear-discriminant-analysis.html#cb45-6" tabindex="-1"></a>sigma.bmd <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">with</span>(bmd.data,</span>
+<span id="cb45-7"><a href="linear-discriminant-analysis.html#cb45-7" tabindex="-1"></a>                       (<span class="fu">sum</span>((bmd[fracture<span class="sc">==</span><span class="st">&quot;fracture&quot;</span>] <span class="sc">-</span> mean.f)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb45-8"><a href="linear-discriminant-analysis.html#cb45-8" tabindex="-1"></a>                       <span class="fu">sum</span>((bmd[fracture<span class="sc">==</span><span class="st">&quot;no fracture&quot;</span>]<span class="sc">-</span> mean.nf)<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span></span>
+<span id="cb45-9"><a href="linear-discriminant-analysis.html#cb45-9" tabindex="-1"></a>                    (<span class="fu">length</span>(bmd)<span class="sc">-</span><span class="dv">2</span>)</span>
+<span id="cb45-10"><a href="linear-discriminant-analysis.html#cb45-10" tabindex="-1"></a>                    )</span>
+<span id="cb45-11"><a href="linear-discriminant-analysis.html#cb45-11" tabindex="-1"></a>                  )</span>
+<span id="cb45-12"><a href="linear-discriminant-analysis.html#cb45-12" tabindex="-1"></a><span class="co">#probability of fracture/no fracture</span></span>
+<span id="cb45-13"><a href="linear-discriminant-analysis.html#cb45-13" tabindex="-1"></a>pr.fracture <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(<span class="fu">table</span>(bmd.data<span class="sc">$</span>fracture))</span>
+<span id="cb45-14"><a href="linear-discriminant-analysis.html#cb45-14" tabindex="-1"></a>    </span>
+<span id="cb45-15"><a href="linear-discriminant-analysis.html#cb45-15" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(mean.f, mean.nf, sigma.bmd))</span></code></pre></div>
+<pre><code>## [1] 0.6233080 0.8502454 0.1305394</code></pre>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="linear-discriminant-analysis.html#cb47-1" tabindex="-1"></a><span class="fu">print</span>(pr.fracture)</span></code></pre></div>
+<pre><code>## 
+##    fracture no fracture 
+##    0.295858    0.704142</code></pre>
+<p>So, now we can compute the value of the discriminant function for a particular
+<strong>bmd</strong>. For example, for <strong>bmd</strong>=0.54</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="linear-discriminant-analysis.html#cb49-1" tabindex="-1"></a><span class="co">#for fracture</span></span>
+<span id="cb49-2"><a href="linear-discriminant-analysis.html#cb49-2" tabindex="-1"></a><span class="fl">0.54</span><span class="sc">*</span>mean.f<span class="sc">/</span>sigma.bmd<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> mean.f<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>sigma.bmd<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">log</span>(pr.fracture[<span class="dv">1</span>])      </span></code></pre></div>
+<pre><code>## fracture 
+## 7.134559</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="linear-discriminant-analysis.html#cb51-1" tabindex="-1"></a><span class="co">#for no fracture</span></span>
+<span id="cb51-2"><a href="linear-discriminant-analysis.html#cb51-2" tabindex="-1"></a><span class="fl">0.54</span><span class="sc">*</span>mean.nf<span class="sc">/</span>sigma.bmd<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> mean.nf<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span>sigma.bmd<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> <span class="fu">log</span>(pr.fracture[<span class="dv">2</span>])      </span></code></pre></div>
+<pre><code>## no fracture 
+##    5.381084</code></pre>
+<p>Thus, for <strong>bmd</strong>=0.54, the classification would “fracture” given that this
+category has the highest value for the discriminant function.</p>
+<p>The linear discriminat analysis is implemented in the <code>lda()</code> function
+from the <code>library(MASS)</code></p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="linear-discriminant-analysis.html#cb53-1" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb53-2"><a href="linear-discriminant-analysis.html#cb53-2" tabindex="-1"></a>lda.model <span class="ot">&lt;-</span> <span class="fu">lda</span>(fracture<span class="sc">~</span>bmd, <span class="at">data=</span>bmd.data)</span>
+<span id="cb53-3"><a href="linear-discriminant-analysis.html#cb53-3" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="linear-discriminant-analysis.html#cb53-4" tabindex="-1"></a><span class="co">#to classify someone with bmd=-.54 </span></span>
+<span id="cb53-5"><a href="linear-discriminant-analysis.html#cb53-5" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb53-6"><a href="linear-discriminant-analysis.html#cb53-6" tabindex="-1"></a><span class="fu">predict</span>(lda.model, <span class="at">newdata=</span><span class="fu">data.frame</span>(<span class="at">bmd=</span><span class="fl">0.54</span>))<span class="sc">$</span>class</span></code></pre></div>
+<pre><code>## [1] fracture
+## Levels: fracture no fracture</code></pre>
+<p><strong>TRY IT YOURSELF:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Compute the confusion matrix for LDA using <strong>bmd</strong> to
+predict <strong>fracture</strong>.</li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="linear-discriminant-analysis.html#cb55-1" tabindex="-1"></a> <span class="co">#predictions</span></span>
+<span id="cb55-2"><a href="linear-discriminant-analysis.html#cb55-2" tabindex="-1"></a>pred.dataset <span class="ot">&lt;-</span> <span class="fu">predict</span>(lda.model)<span class="sc">$</span>class</span>
+<span id="cb55-3"><a href="linear-discriminant-analysis.html#cb55-3" tabindex="-1"></a><span class="co">#confusion matrix</span></span>
+<span id="cb55-4"><a href="linear-discriminant-analysis.html#cb55-4" tabindex="-1"></a><span class="fu">table</span>(bmd.data<span class="sc">$</span>fracture, pred.dataset)</span></code></pre></div>
+</details>
+<p>
+<p>
+<ol start="2" style="list-style-type: decimal">
+<li>Additionally to <strong>bmd</strong>, use <strong>age</strong>, <strong>weight_kg</strong> and <strong>height_cm</strong>, to
+predict <strong>fracture</strong> using LDA, and compute the confusion matrix. Compare the
+kappa statistic for this result with the one obtained in 1).</li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="linear-discriminant-analysis.html#cb56-1" tabindex="-1"></a>lda.model2 <span class="ot">&lt;-</span> <span class="fu">lda</span>(fracture<span class="sc">~</span>bmd<span class="sc">+</span>age<span class="sc">+</span>weight_kg<span class="sc">+</span>height_cm, </span>
+<span id="cb56-2"><a href="linear-discriminant-analysis.html#cb56-2" tabindex="-1"></a>                  <span class="at">data=</span>bmd.data)</span>
+<span id="cb56-3"><a href="linear-discriminant-analysis.html#cb56-3" tabindex="-1"></a><span class="co">#predictions</span></span>
+<span id="cb56-4"><a href="linear-discriminant-analysis.html#cb56-4" tabindex="-1"></a>pred.dataset2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(lda.model2)<span class="sc">$</span>class</span>
+<span id="cb56-5"><a href="linear-discriminant-analysis.html#cb56-5" tabindex="-1"></a><span class="co">#confusion matrix</span></span>
+<span id="cb56-6"><a href="linear-discriminant-analysis.html#cb56-6" tabindex="-1"></a><span class="fu">table</span>(bmd.data<span class="sc">$</span>fracture, pred.dataset2)</span>
+<span id="cb56-7"><a href="linear-discriminant-analysis.html#cb56-7" tabindex="-1"></a></span>
+<span id="cb56-8"><a href="linear-discriminant-analysis.html#cb56-8" tabindex="-1"></a><span class="fu">library</span>(irr) <span class="co">#for the kappa statistics</span></span></code></pre></div>
+<pre><code>## Loading required package: lpSolve</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="linear-discriminant-analysis.html#cb58-1" tabindex="-1"></a><span class="fu">kappa2</span>(<span class="fu">cbind</span>(bmd.data<span class="sc">$</span>fracture, pred.dataset))    <span class="co">#model in 1)</span></span>
+<span id="cb58-2"><a href="linear-discriminant-analysis.html#cb58-2" tabindex="-1"></a><span class="fu">kappa2</span>(<span class="fu">cbind</span>(bmd.data<span class="sc">$</span>fracture, pred.dataset2))   <span class="co">#current model</span></span></code></pre></div>
+</details>
+</div>
+<div id="task-2---classification-with-the-quadratic-discriminant-function" class="section level3 unnumbered hasAnchor">
+<h3>Task 2 - Classification with the quadratic discriminant function<a href="linear-discriminant-analysis.html#task-2---classification-with-the-quadratic-discriminant-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The linear discriminant function assumes that the variance is the
+same for all the categories of the outcome. The quadratic discriminant
+analysis (QDA) relaxes this assumption.</p>
+<p>Let’s repeat the classification of <strong>fracture</strong> with <strong>bmd</strong>, using a QDA</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="linear-discriminant-analysis.html#cb59-1" tabindex="-1"></a><span class="co">#qda() is a function from the MASS</span></span>
+<span id="cb59-2"><a href="linear-discriminant-analysis.html#cb59-2" tabindex="-1"></a><span class="co">#library that fits QDA</span></span>
+<span id="cb59-3"><a href="linear-discriminant-analysis.html#cb59-3" tabindex="-1"></a>qda.model <span class="ot">&lt;-</span> <span class="fu">qda</span>(fracture <span class="sc">~</span> bmd, </span>
+<span id="cb59-4"><a href="linear-discriminant-analysis.html#cb59-4" tabindex="-1"></a>                  <span class="at">data=</span>bmd.data)</span></code></pre></div>
+<p>We can now predict <strong>fracture</strong> for the individuals in the dataset and compare
+it with the observed values (confusion matrix)</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="linear-discriminant-analysis.html#cb60-1" tabindex="-1"></a><span class="co">#predictions</span></span>
+<span id="cb60-2"><a href="linear-discriminant-analysis.html#cb60-2" tabindex="-1"></a>pred.qda <span class="ot">&lt;-</span> <span class="fu">predict</span>(qda.model)<span class="sc">$</span>class</span>
+<span id="cb60-3"><a href="linear-discriminant-analysis.html#cb60-3" tabindex="-1"></a><span class="co">#confusion matrix</span></span>
+<span id="cb60-4"><a href="linear-discriminant-analysis.html#cb60-4" tabindex="-1"></a><span class="fu">table</span>(bmd.data<span class="sc">$</span>fracture, pred.qda)</span></code></pre></div>
+<pre><code>##              pred.qda
+##               fracture no fracture
+##   fracture          34          16
+##   no fracture       10         109</code></pre>
+<p><strong>TRY IT YOURSELF:</strong></p>
+<ol style="list-style-type: decimal">
+<li>Additionally to <strong>bmd</strong>, use <strong>age</strong>, <strong>weight_kg</strong> and <strong>height_cm</strong>, to
+predict <strong>fracture</strong> using QDA, and compute the confusion matrix.</li>
+</ol>
+<details>
+<summary>
+<em>See the solution code</em>
+</summary>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="linear-discriminant-analysis.html#cb62-1" tabindex="-1"></a>qda.model2 <span class="ot">&lt;-</span> <span class="fu">qda</span>(fracture<span class="sc">~</span>bmd<span class="sc">+</span>age<span class="sc">+</span>weight_kg<span class="sc">+</span>height_cm, </span>
+<span id="cb62-2"><a href="linear-discriminant-analysis.html#cb62-2" tabindex="-1"></a>                  <span class="at">data=</span>bmd.data)</span>
+<span id="cb62-3"><a href="linear-discriminant-analysis.html#cb62-3" tabindex="-1"></a><span class="co">#predictions</span></span>
+<span id="cb62-4"><a href="linear-discriminant-analysis.html#cb62-4" tabindex="-1"></a>pred.qda2 <span class="ot">&lt;-</span> <span class="fu">predict</span>(qda.model2)<span class="sc">$</span>class</span>
+<span id="cb62-5"><a href="linear-discriminant-analysis.html#cb62-5" tabindex="-1"></a><span class="co">#confusion matrix</span></span>
+<span id="cb62-6"><a href="linear-discriminant-analysis.html#cb62-6" tabindex="-1"></a><span class="fu">table</span>(bmd.data<span class="sc">$</span>fracture, pred.qda2)</span></code></pre></div>
+</details>
+</div>
+</div>
+<div id="lda.exerc" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Exercises<a href="linear-discriminant-analysis.html#lda.exerc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>The dataset <a href="https://www.dropbox.com/s/fvj7774lmyneab6/bdiag.csv?dl=1">bdiag.csv</a>,
+included several imaging details from patients that had a biopsy to test for
+breast cancer.<br />
+The variable <strong>Diagnosis</strong> classifies the biopsied tissue as M = malignant or
+B = benign.</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Use LDA to predict <strong>Diagnosis</strong> using <strong>texture_mean</strong>
+and <strong>radius_mean</strong>.</p></li>
+<li><p>Build the confusion matrix for the model above</p></li>
+<li><p>Compare the results with a logistic regession</p></li>
+<li><p>Plot the scatter plot for <strong>texture_mean</strong>
+and <strong>radius_mean</strong> and draw the border line for the prediction of
+<strong>Diagnosis</strong> based on the model in a)</p></li>
+<li><p>Use <strong>radius_mean, texture_mean, perimeter_mean, area_mean,
+smoothness_mean, compactness_mean, symmetry_mean,
+fractal_dimension_mean</strong> to classify <strong>diagnosis</strong> with LDA and QDA.
+Check the distribution of the predictors.</p></li>
+</ol></li>
+<li><p>Exercise 5 from the book (page 191)</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="logistic-regression.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="k-nearest-neighbours-classification.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": null,
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["_main.pdf"],
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
